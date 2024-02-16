@@ -1,28 +1,34 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
 import shopConfig from "../shopConfig";
-import { ICategory } from "../types/ICategory";
+import { ICatalogCategories, ICatalogProducts } from "@/types/ICatalog";
 
 export const useShopStore = defineStore('ShopStore', {
     state: () => {
         return {
-            categories: [] as ICategory[],
-            products: [],
+            categories: null as ICatalogCategories | null,
+            products: null as ICatalogProducts | null,
+            isLoading: true,
         }
     },
-    getters: {},
+    getters: {
+    },
     actions: {
-        fill() {
+        async fill() {
             const options = {
                 method: 'GET',
                 headers: {accept: 'application/json', Authorization: `Bearer ${shopConfig.token}`}
             };
 
-            fetch(`https://app.ecwid.com/api/v3/${shopConfig.storeId}/categories`, options)
-                .then(response => response.json())
-                .then(response => {
-                    this.categories = response;
-                })
-                .catch(err => console.error(err));
+            const [categoriesResponse, productsResponse] = await Promise.all([
+                fetch(`https://app.ecwid.com/api/v3/${shopConfig.storeId}/categories`, options),
+                fetch(`https://app.ecwid.com/api/v3/${shopConfig.storeId}/products`, options)
+            ]);
+
+            this.categories = await categoriesResponse.json();
+            this.products = await productsResponse.json();
+
+            console.log(this.products);// @TODO DudnikES
+            this.isLoading = false;
         },
     },
 });

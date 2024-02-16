@@ -1,11 +1,18 @@
 <template>
-  <Category />
-  <Product />
+  <div class="bg-gray-100">
+    <Categories />
+    <Products
+        :products="shopStore.products.items"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
-import Product from "./catalog/Product.vue";
-import Category from "./catalog/category/Category.vue";
+import Categories from "@/components/catalog/category/Categories.vue";
+import Products from "@/components/catalog/product/Products.vue";
+import { useShopStore } from "@/stores/ShopStore";
+
+const shopStore = useShopStore();
 </script>
 
 

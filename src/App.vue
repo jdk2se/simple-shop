@@ -1,6 +1,6 @@
 <template>
   <Header />
-  <router-view></router-view>
+  <router-view v-if="!shopStore.isLoading"></router-view>
 </template>
 
 <script setup lang="ts">

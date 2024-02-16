@@ -1,6 +1,6 @@
 import Homepage from "./components/Homepage.vue";
 import Category from "./components/catalog/category/Category.vue";
-import Product from "./components/catalog/Product.vue";
+import Product from "./components/catalog/product/Product.vue";
 
 export const routes = [
     { path: '/', component: Homepage },
