@@ -8,6 +8,7 @@
           v-for="product in products"
           :key="product.id"
           :product="product"
+          :url="`catalog/product/${product.id}`"
       />
     </div>
   </div>

@@ -8,4 +8,11 @@ export interface IProduct {
     price: number;
     defaultDisplayedPriceFormatted: string;
     categoryIds: number [];
+    galleryImages: IGalleryImage[];
+}
+
+interface IGalleryImage {
+    id: number;
+    url: string;
+    thumbnailUrl: string;
 }

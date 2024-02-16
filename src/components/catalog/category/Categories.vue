@@ -18,6 +18,6 @@
 <script setup lang="ts">
 import Category from "@/components/catalog/category/Category.vue";
 import { useShopStore } from "@/stores/ShopStore";
-
+// @TODO DudnikES ПОдкатегории
 const shopStore = useShopStore();
 </script>
