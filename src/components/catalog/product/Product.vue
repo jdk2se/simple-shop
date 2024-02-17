@@ -18,22 +18,20 @@
           {{ product.defaultDisplayedPriceFormatted }}
         </div>
       </div>
-      <CartBtn @cartAction="addToCart" />
+      <CartBtn @cartAction="cartStore.addProducts(1, product)" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { IProduct } from "@/types/IProduct.js";
-import CartBtn from "@/components/buttons/CartBtn.vue";
+import CartBtn from "@/components/cart/CartBtn.vue";
+import { useCartStore } from "@/stores/CartStore";
 
 defineProps<{
   product: IProduct,
   url: string,
 }>();
 
-
-const addToCart = () => {
-  console.log('todo add to cart');
-};
+const cartStore = useCartStore();
 </script>

@@ -50,7 +50,9 @@
               </p>
             </div>
             <div class="flex flex-wrap items-center mb-6">
-              <a href="#" class="w-full px-4 py-3 text-center text-blue-600 bg-blue-100 border border-blue-600 dark:hover:bg-gray-900 dark:text-gray-400 dark:border-gray-700 dark:bg-gray-700 hover:bg-blue-600 hover:text-gray-100 lg:w-1/2 rounded-xl">
+              <a
+                  @click="addToCart"
+                  class="cursor-pointer w-full px-4 py-3 text-center text-blue-600 bg-blue-100 border border-blue-600 dark:hover:bg-gray-900 dark:text-gray-400 dark:border-gray-700 dark:bg-gray-700 hover:bg-blue-600 hover:text-gray-100 lg:w-1/2 rounded-xl">
                 Add to cart
               </a>
             </div>
@@ -63,9 +65,10 @@
 
 <script setup lang="ts">
 import { useShopStore } from "@/stores/ShopStore";
-import { onBeforeMount, Ref, ref } from "vue";
+import { onBeforeMount, Ref, ref, unref } from "vue";
 import { IProduct } from "@/types/IProduct";
 import { useRouter } from "vue-router";
+import { useCartStore } from "@/stores/CartStore";
 
 const props = defineProps<{
   id: string
@@ -74,6 +77,7 @@ const props = defineProps<{
 const shopStore = useShopStore();
 const router = useRouter();
 let product: Ref<IProduct | null> = ref(null);
+const cartStore = useCartStore();
 
 onBeforeMount( () => {
   shopStore.getProductById(props.id)
@@ -84,5 +88,9 @@ onBeforeMount( () => {
         router.push({name: '404'});
       });
 });
+
+const addToCart = () => {
+  cartStore.addProducts(1, <IProduct>unref(product));
+}
 </script>
 

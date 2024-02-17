@@ -1,6 +1,8 @@
 import Homepage from "./components/Homepage.vue";
 import CategoryPage from "@/components/catalog/category/CategoryPage.vue";
 import ProductPage from "@/components/catalog/product/ProductPage.vue";
+import CartPage from "@/components/cart/CartPage.vue";
+import PageNotFound from "@/components/PageNotFound.vue";
 
 export const routes = [
     { path: '/', component: Homepage },
@@ -29,6 +31,6 @@ export const routes = [
             },
         ],
     },
-    { path: '/cart', component: Homepage },
-    { path: '/*', name: '404', component: Homepage },// @TODO DudnikES
+    { path: '/cart', component: CartPage },
+    { path: '/:pathMatch(.*)*', name: '404', component: PageNotFound },
 ];
