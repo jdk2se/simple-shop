@@ -32,12 +32,18 @@ export const useCartStore = defineStore('cartStore', {
                 this.products.push({ ...product });
             }
         },
-        deleteCardproduct(id) {
+        deleteCardproduct(id: string) {
             this.products = this.products.filter(product => product.id !== id);
         },
         checkout(){
             this.products = [];
         },
+        setProductsCount(count: number, product:IProduct) {
+            this.deleteCardproduct(product.id);
+            if (count > 0) {
+                this.addProducts(count, product);
+            }
+        }
     }
 });
 

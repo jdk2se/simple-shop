@@ -3,15 +3,22 @@
       :is-shown="isOrderCompleted"
       @closeModal="isOrderCompleted = false"
   />
-  <div class="mt-8">
+  <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
+    <h1 class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
+      <span class="text-transparent bg-clip-text bg-gradient-to-r to-orange-400 from-red-400">
+        Shopping Cart
+      </span>
+    </h1>
+  </div>
+  <div class="px-4 py-6 sm:px-6">
     <div class="flow-root">
       <ul role="list"
           class="-my-6 divide-y divide-gray-200">
-        <li v-for="(product, name) in cartStore.grouped"
+        <li v-for="(products, name) in cartStore.grouped"
             :key="name"
             class="flex py-6">
           <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-            <img :src="product[0].thumbnailUrl"
+            <img :src="products[0].thumbnailUrl"
                  :alt="name"
                  class="h-full w-full object-cover object-center"/>
           </div>
@@ -20,19 +27,25 @@
             <div>
               <div class="flex justify-between text-base font-medium text-gray-900">
                 <h3>
-                  <router-link :to="`/catalog/product/${product[0].id}`">
+                  <router-link :to="`/catalog/product/${products[0].id}`">
                     {{ name }}
                   </router-link>
                 </h3>
-                <p class="ml-4">{{ product[0].defaultDisplayedPriceFormatted }}</p>
+                <p class="ml-4">{{ products[0].defaultDisplayedPriceFormatted }}</p>
               </div>
             </div>
             <div class="flex flex-1 items-end justify-between text-sm">
-              <p class="text-gray-500">Количество: {{ cartStore.groupCount(name) }}</p>
+              <div class="text-gray-500">
+                <AppCountInput
+                    :qty="cartStore.groupCount(name)"
+                    :id="products.name"
+                    @change="cartStore.setProductsCount($event, products[0])"
+                />
+              </div>
 
               <div class="flex">
                 <button
-                    @click="cartStore.deleteCardproduct(product[0].id)"
+                    @click="cartStore.deleteCardproduct(products[0].id)"
                     type="button"
                     class="font-medium text-indigo-600 hover:text-indigo-500"
                 >
@@ -60,9 +73,13 @@
     </div>
   </div>
   <div class="border-t border-gray-200 px-4 py-6 sm:px-6" v-else>
-    <router-link to="/">
-      Продолжить покупки
-    </router-link>
+    <button
+        @click="$router.push('/')"
+        type="button"
+        class="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+    >
+      Continue shopping
+    </button>
   </div>
 </template>
 
@@ -71,6 +88,7 @@
 import { useCartStore } from "@/stores/CartStore";
 import Modal from "@/components/Modal.vue";
 import { ref } from "vue";
+import AppCountInput from "@/components/catalog/AppCountInput.vue";
 
 const cartStore = useCartStore();
 const isOrderCompleted = ref(false);
