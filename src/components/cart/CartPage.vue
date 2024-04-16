@@ -38,14 +38,14 @@
               <div class="text-gray-500">
                 <AppCountInput
                     :qty="cartStore.groupCount(name)"
-                    :id="products.name"
+                    :id="products[0].name"
                     @change="cartStore.setProductsCount($event, products[0])"
                 />
               </div>
 
               <div class="flex">
                 <button
-                    @click="cartStore.deleteCardproduct(products[0].id)"
+                    @click="cartStore.deleteCardProduct(products[0].id)"
                     type="button"
                     class="font-medium text-indigo-600 hover:text-indigo-500"
                 >
