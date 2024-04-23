@@ -11,7 +11,7 @@ export interface IProduct {
     galleryImages: IGalleryImage[];
 }
 
-interface IGalleryImage {
+export interface IGalleryImage {
     id: number;
     url: string;
     thumbnailUrl: string;

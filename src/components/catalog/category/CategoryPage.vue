@@ -34,6 +34,7 @@ import { useRouter } from "vue-router";
 import Product from "@/components/catalog/product/Product.vue";
 import { ICategory } from "@/types/ICategory";
 import { IProduct } from "@/types/IProduct";
+import { Nullable } from "@/types/Nullable.ts";
 
 const props = defineProps<{
   categorySlug: string,
@@ -41,7 +42,7 @@ const props = defineProps<{
 
 const shopStore = useShopStore();
 const router = useRouter();
-let category: ICategory | null = null as ICategory;
+let category: Nullable<ICategory>;
 let products: IProduct[] = [];
 
 onBeforeMount(() => {

@@ -2,6 +2,7 @@
   <div class="bg-gray-100">
     <Categories />
     <Products
+        v-if="shopStore.products"
         :products="shopStore.products.items"
     />
   </div>
